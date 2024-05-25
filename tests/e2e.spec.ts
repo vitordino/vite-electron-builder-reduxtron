@@ -97,3 +97,22 @@ test('Preload nodeCrypto', async () => {
   const expectedHash = createHash('sha256').update(testString).digest('hex');
   expect(renderedHash).toEqual(expectedHash);
 });
+
+test('reduxtron counter', async () => {
+  const page = await electronApp.firstWindow();
+  const button = page.getByRole('button');
+  expect(
+    await button.textContent(),
+    'expect find one element input#reactive-hash-raw-value',
+  ).toEqual('count is: 0');
+  await button.click({noWaitAfter: true});
+  expect(
+    await button.textContent(),
+    'expect find one element input#reactive-hash-raw-value',
+  ).toEqual('count is: 1');
+  await button.click({noWaitAfter: true});
+  expect(
+    await button.textContent(),
+    'expect find one element input#reactive-hash-raw-value',
+  ).toEqual('count is: 2');
+});
