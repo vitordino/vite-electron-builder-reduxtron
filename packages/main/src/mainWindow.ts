@@ -1,4 +1,4 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, ipcMain} from 'electron';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -6,7 +6,7 @@ async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       contextIsolation: true,
       sandbox: false, // Sandbox disabled because the demo of preload script depend on the Node.js api
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like an iframe or Electron's BrowserView. @see https://www.electronjs.org/docs/latest/api/webview-tag#warning
@@ -52,6 +52,11 @@ async function createWindow() {
       fileURLToPath(new URL('./../../renderer/dist/index.html', import.meta.url)),
     );
   }
+
+  ipcMain.on('subscribe', async (state: unknown) => {
+    if (browserWindow?.isDestroyed()) return;
+    browserWindow?.webContents?.send('subscribe', state);
+  });
 
   return browserWindow;
 }

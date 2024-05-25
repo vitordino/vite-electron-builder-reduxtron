@@ -1,14 +1,18 @@
-import {app} from 'electron';
+import {app, ipcMain} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
+import {mainReduxBridge} from 'reduxtron/main';
+import {store} from './store';
 
+const {unsubscribe} = mainReduxBridge(ipcMain, store);
 /**
  * Prevent electron from running multiple instances.
  */
 const isSingleInstance = app.requestSingleInstanceLock();
 if (!isSingleInstance) {
+  // unsubscribe();
   app.quit();
   process.exit(0);
 }
@@ -40,6 +44,8 @@ app
   .whenReady()
   .then(restoreOrCreateWindow)
   .catch(e => console.error('Failed create window:', e));
+
+app.on('will-quit', unsubscribe);
 
 /**
  * Install Vue.js or any other extension in development mode only.

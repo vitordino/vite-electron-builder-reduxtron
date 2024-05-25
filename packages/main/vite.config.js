@@ -12,6 +12,14 @@ const config = {
   mode: process.env.MODE,
   root: PACKAGE_ROOT,
   envDir: PROJECT_ROOT,
+  optimizeDeps: {
+    extensions: ['cjs'],
+    esbuildOptions: {target: 'node'},
+    include: ['reduxtron'],
+    entries: ['src/index.js'],
+    needsInterop: true,
+    noDiscovery: true,
+  },
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
