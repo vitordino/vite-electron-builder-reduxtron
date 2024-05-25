@@ -28,7 +28,11 @@ vi.mock('electron', () => {
     },
   };
 
-  return {BrowserWindow: bw, app};
+  const ipcMain = {
+    on: vi.fn(),
+  };
+
+  return {BrowserWindow: bw, app, ipcMain};
 });
 
 beforeEach(() => {

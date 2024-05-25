@@ -5,23 +5,20 @@ import {reduxtron} from '#preload';
 
 const counter = ref<number | undefined>();
 
-const onDecrement = () => reduxtron.dispatch({type: 'COUNTER:DECREMENT'});
 const onIncrement = () => reduxtron.dispatch({type: 'COUNTER:INCREMENT'});
 
 onBeforeMount(async () => {
-    const setCounter = (state: Partial<State>) => {
-        console.log('setCounter', {state});
-        counter.value = state.counter;
-    };
+  const setCounter = (state: Partial<State>) => {
+    console.log('setCounter', {state});
+    counter.value = state.counter;
+  };
 
-    reduxtron.subscribe(setCounter);
-    const state = await reduxtron.getState();
-    setCounter(state);
+  reduxtron.subscribe(setCounter);
+  const state = await reduxtron.getState();
+  setCounter(state);
 });
 </script>
 
 <template>
-  <button @click="onDecrement">-</button>
-  <pre>{{ counter }}</pre>
-  <button @click="onIncrement">+</button>
+  <button @click="onIncrement">count is: {{ counter }}</button>
 </template>

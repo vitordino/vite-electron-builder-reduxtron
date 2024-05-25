@@ -7,6 +7,12 @@ vi.mock('electron', () => ({
   contextBridge: {
     exposeInMainWorld: () => {},
   },
+  ipcRenderer: {
+    send: vi.fn(),
+    invoke: vi.fn(),
+    on: vi.fn(),
+    off: vi.fn(),
+  },
 }));
 
 test('versions', async () => {
