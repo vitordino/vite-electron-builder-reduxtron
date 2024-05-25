@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import type {State} from '../../../shared/reducers/index';
 import {ref, onBeforeMount} from 'vue';
-import {reduxtron} from '#preload';
 
 const counter = ref<number | undefined>();
+
+const reduxtron = window.__electron_preload__reduxtron;
 
 const onIncrement = () => reduxtron.dispatch({type: 'COUNTER:INCREMENT'});
 
