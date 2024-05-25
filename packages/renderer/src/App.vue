@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import ReactiveCounter from '/@/components/ReactiveCounter.vue';
-import ReactiveHash from '/@/components/ReactiveHash.vue';
-import ElectronVersions from '/@/components/ElectronVersions.vue';
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 </script>
@@ -33,16 +31,6 @@ const APP_VERSION = import.meta.env.VITE_APP_VERSION;
   <fieldset>
     <legend>Test Vue Reactivity</legend>
     <reactive-counter />
-  </fieldset>
-
-  <fieldset>
-    <legend>Test Node.js API</legend>
-    <reactive-hash />
-  </fieldset>
-
-  <fieldset>
-    <legend>Environment</legend>
-    <electron-versions />
   </fieldset>
 
   <p>
